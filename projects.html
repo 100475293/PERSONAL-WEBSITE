@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Mario Salvador Camacho</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header dinámico -->
+    <div id="header-container"></div>
+    <script>
+        fetch('header.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+            
+            // Detectar la página actual
+            let currentPage = window.location.pathname.split("/").pop();
+      
+            // Buscar todos los enlaces del menú
+            let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
+      
+            // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
+            navLinks.forEach(link => {
+                if (link.getAttribute("href") === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+          });
+      </script>
+      
+    
+    <!-- Contenido principal -->
+    <main>
+        <h2 class="portfolio-title fade-down">Portfolio</h2>
+    
+        <!-- Contenedor de proyectos -->
+        <div class="projects-grid fade-up">
+            <div class="project-card card1">
+                <h3>Macrolyze Web</h3>
+                <img src="img/macrolyze.png" alt="Macrolyze Project" class="project-image">
+                <a href="https://github.com/100432160/macrolyze-frontend" class="view-work">View Work ↗</a>
+            </div>
+            <div class="project-card card2">
+                <h3>Home Assistant</h3>
+                <img src="img/home-assistant.png" alt="Home Assistant Project" class="project-image">
+                <a href="https://github.com/dominic-griffith/CS576_Group_Project" class="view-work">View Work ↗</a>
+            </div>
+            <div class="project-card card3">
+                <h3>Data Science Lab</h3>
+                <img src="img/study.png" alt="Data Science Study" class="project-image">
+                <a href="https://github.com/100475293/Data-Science-Study" class="view-work">View Work ↗</a>
+            </div>
+        </div>
+    </main>
+    
+    
+    <!-- Footer dinámico -->
+    <div id="footer-container"></div>
+    <script>
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-container').innerHTML = data);
+    </script>
+
+    
+
+</body>
+</html>

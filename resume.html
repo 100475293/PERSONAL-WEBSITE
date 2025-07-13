@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV | Mario Salvador Camacho</title>
+  <link rel="stylesheet" href="styles.css">
+
+
+</head>
+<body>
+    
+  <!-- Header dinámico -->
+  <div id="header-container"></div>
+  <script>
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+        
+        // Detectar la página actual
+        let currentPage = window.location.pathname.split("/").pop();
+  
+        // Buscar todos los enlaces del menú
+        let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
+  
+        // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
+        navLinks.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+            }
+        });
+      });
+  </script>
+  
+
+  <main>
+    <!-- MY CURRICULUM VITAE bajando desde arriba => fade-down -->
+    <h2 class="fade-down">MY CURRICULUM VITAE</h2>
+    
+    <!-- Texto ascendiendo => fade-up, en una sola línea -->
+    <p class="fade-up single-line" style="margin-top:10px;">
+      View or download my resume to learn more about my professional experience!
+    </p>
+
+    <!-- Contenedor del PDF con zoom-in -->
+    <div class="resume-wrapper zoom-in" style="animation-delay: 0.3s;">
+      <iframe 
+        src="cv/CV%20VERSION%202.pdf" 
+        frameborder="0"
+        scrolling="auto"
+        class="resume-iframe">
+      </iframe>
+    </div>
+
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="cv/CV%20VERSION%202.pdf" download class="button-cv">
+        Download CV
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-container').innerHTML = data);
+  </script>
+</body>
+</html>
