@@ -341,21 +341,21 @@ section {
 }
 
 .hero-decoration.tl {
-  top: 140px;
-  left: 48px;
+  top: 160px;
+  left: 16px;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
 
 .hero-decoration.br {
-  bottom: 80px;
-  right: 48px;
+  bottom: 32px;
+  right: 16px;
 }
 
 /* Hero layout */
 .hero {
   min-height: 100vh;
-  padding: 160px 48px 80px;
+  padding: 160px 80px 80px;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
