@@ -1,130 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Mario Salvador Camacho</title>
+  <meta name="description" content="Get in touch with Mario Salvador Camacho — open to internships, conversations, and good ideas.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script> <!--importa la librería de EmailJS-->
+  <!-- EmailJS SDK (your existing integration) -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
-      // Inicializa EmailJS con tu Public Key para conectar mi cuenta
       emailjs.init("FsfOgUsz9UhgOsVjA");
     })();
   </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() { //espera a que todo esté cargado
-      const form = document.getElementById('contactForm'); //guarda las referencias del formulario
-      const successMsg = document.getElementById('successMessage'); // <p> para mostrar el mensaje
-
-      form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita recargar la página
-        
-        // Envía con emailjs.sendForm
-        emailjs.sendForm(
-          'service_b7ul49e',   // service_id
-          'template_ex32fam',  // template_id
-          this,                // el propio formulario
-          'FsfOgUsz9UhgOsVjA'   // public_key
-        ).then(function() {
-            successMsg.textContent = 'Message sent successfully!';
-            successMsg.style.color = '#c9d1d9'; 
-            form.reset();
-          }, function(error) {
-            successMsg.textContent = 'Error sending message: ' + JSON.stringify(error);
-            successMsg.style.color = 'red';
-          });
-      });
-    });
-  </script>
-
-  
-  
 </head>
 <body>
-  
-  <!-- Header dinámico -->
+
+  <!-- Header (dynamically loaded) -->
   <div id="header-container"></div>
   <script>
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
-        
-        // Detectar la página actual
-        let currentPage = window.location.pathname.split("/").pop();
-  
-        // Buscar todos los enlaces del menú
-        let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
-  
-        // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
+        const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#header-container .site-nav ul li a');
         navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
-                link.classList.add("active");
-            }
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
         });
+        const header = document.querySelector('.site-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
       });
   </script>
-  
 
-  <!-- Contenido principal -->
-  <main>
-    <div class="contact-container">
-      
-      <!-- Título "Contact" con fade-down -->
-      <h2 class="fade-down">Contact</h2>
-      <span class="underline"></span>
+  <!-- ============= CONTACT HERO ============= -->
+  <section class="page-hero contact-page-hero">
+    <div class="page-hero-content reveal-stagger">
+      <div class="page-hero-meta">Let's talk</div>
+      <h1 class="page-hero-title">Get in <em>touch</em></h1>
+      <p class="page-hero-lede">
+        Whether it's an internship, a collaboration, or just a good conversation — I read every message. Reply usually within 48 hours.
+      </p>
+    </div>
+  </section>
 
-      <!-- Bloque de "Message Me" y formulario con fade-up -->
-      <div class="fade-up">
-        <h3>Message Me!</h3>
-        
-        <form class="contact-form" id="contactForm">
-          <div class="input-row"> <!--agrupa los datos en una línea-->
-            <div class="form-field"> <!--campos del formulario-->
+  <!-- ============= CONTACT GRID ============= -->
+  <section class="contact-section">
+    <div class="contact-grid">
+
+      <!-- LEFT: Contact info aside -->
+      <aside class="contact-info reveal">
+        <div class="contact-info-block">
+          <span class="contact-info-label">Email</span>
+          <a href="mailto:msalvador441@gmail.com" class="contact-info-value">
+            msalvador441@gmail.com
+          </a>
+        </div>
+
+        <div class="contact-info-block">
+          <span class="contact-info-label">Based in</span>
+          <span class="contact-info-value">
+            Graz, Austria
+            <span class="contact-info-note">Returning to Madrid · Spring 2026</span>
+          </span>
+        </div>
+
+        <div class="contact-info-block">
+          <span class="contact-info-label">Looking for</span>
+          <span class="contact-info-value">
+            Internships
+            <span class="contact-info-note">Consulting · Strategy · Tech · Q3-Q4 2026</span>
+          </span>
+        </div>
+
+        <div class="contact-info-block">
+          <span class="contact-info-label">Elsewhere</span>
+          <div class="contact-social-list">
+            <a href="https://www.linkedin.com/in/mario-salvador-camacho-3b5b93294/" target="_blank" rel="noopener" class="contact-social-link">
+              LinkedIn <span class="arrow">↗</span>
+            </a>
+            <a href="https://github.com/100475293" target="_blank" rel="noopener" class="contact-social-link">
+              GitHub <span class="arrow">↗</span>
+            </a>
+            <a href="https://www.instagram.com/msalvadorr_/" target="_blank" rel="noopener" class="contact-social-link">
+              Instagram <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-wrap reveal">
+        <h2 class="contact-form-title">Send me a <em>message</em></h2>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-field">
               <label for="name">Name</label>
-              <input type="text" id="name" name="user_name" />
+              <input type="text" id="name" name="user_name" required autocomplete="name">
+              <span class="field-line"></span>
             </div>
             <div class="form-field">
               <label for="email">Email</label>
-              <input type="email" id="email" name="user_email" />
+              <input type="email" id="email" name="user_email" required autocomplete="email">
+              <span class="field-line"></span>
             </div>
           </div>
-          
+
           <div class="form-field">
             <label for="subject">Subject</label>
-            <input type="text" id="subject" name="user_subject" />
-          </div>
-          
-          <div class="form-field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5"></textarea>
+            <input type="text" id="subject" name="user_subject" required>
+            <span class="field-line"></span>
           </div>
 
-          <div class="btn-container">
-            <!-- Botón de envío con clase button-cv -->
-            <button type="submit" class="button-cv" style="color: #fff;">
-              Send Message
+          <div class="form-field form-field-textarea">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+            <span class="field-line"></span>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="btn btn-primary form-submit-btn">
+              <span class="btn-text">Send message</span>
+              <span class="btn-loader"></span>
               <span class="arrow">↗</span>
             </button>
+            <p id="successMessage" class="form-status"></p>
           </div>
-
-          <!-- Mensaje de éxito / error -->
-          <p id="successMessage" style="margin-top:10px; font-size:1rem;"></p> <!--en el email jsk para mostrar la respuesta-->
         </form>
       </div>
 
     </div>
-  </main>
-  <!-- Footer (cargado con fetch) -->
+  </section>
+
+  <!-- Footer (dynamically loaded) -->
   <div id="footer-container"></div>
   <script>
     fetch('footer.html')
       .then(response => response.text())
       .then(data => document.getElementById('footer-container').innerHTML = data);
   </script>
+
+  <!-- Form handling (EmailJS) + reveal observer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* Reveal-on-scroll */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+      setTimeout(() => {
+        document.querySelectorAll('.page-hero .reveal, .page-hero .reveal-stagger').forEach(el => el.classList.add('visible'));
+      }, 100);
+
+      /* EmailJS form submission */
+      const form = document.getElementById('contactForm');
+      const successMsg = document.getElementById('successMessage');
+      const submitBtn = form.querySelector('.form-submit-btn');
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Loading state
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
+        successMsg.textContent = '';
+        successMsg.className = 'form-status';
+
+        emailjs.sendForm(
+          'service_b7ul49e',
+          'template_ex32fam',
+          this,
+          'FsfOgUsz9UhgOsVjA'
+        ).then(function() {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.classList.add('is-success');
+          submitBtn.disabled = false;
+          successMsg.textContent = 'Message sent — I\'ll get back to you soon.';
+          successMsg.classList.add('is-success');
+          form.reset();
+          setTimeout(() => {
+            submitBtn.classList.remove('is-success');
+          }, 3000);
+        }, function(error) {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.disabled = false;
+          successMsg.textContent = 'Something went wrong. Please try again or email me directly.';
+          successMsg.classList.add('is-error');
+          console.error('EmailJS error:', error);
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
