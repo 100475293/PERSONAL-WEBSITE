@@ -450,8 +450,8 @@ section {
 
 .profile-badge {
   position: absolute;
-  bottom: -20px;
-  right: -20px;
+  bottom: 20px;
+  right: 20px;
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 100px;
