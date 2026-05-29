@@ -36,6 +36,8 @@
 html { scroll-behavior: smooth; }
 
 /* Page fade-in on load (subtle polish across all pages) */
+/* NOTE: We only animate opacity on body, never transform.
+   A transform on body would break position:fixed children (the header). */
 body {
   background: var(--bg);
   color: var(--ink);
@@ -47,27 +49,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   opacity: 0;
-  transform: translateY(8px);
-  animation: pageEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: opacity 0.32s cubic-bezier(0.7, 0, 0.84, 0),
-              transform 0.32s cubic-bezier(0.7, 0, 0.84, 0);
+  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.32s cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 body.is-leaving {
   opacity: 0;
-  transform: translateY(-8px);
   animation: none;
 }
 
 @keyframes pageEnter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Respect reduced motion */
@@ -76,21 +69,19 @@ body.is-leaving {
     animation: none;
     transition: none;
     opacity: 1;
-    transform: none;
   }
   body.is-leaving {
     opacity: 1;
-    transform: none;
   }
 }
 
-/* Scroll progress bar — top of viewport, ultra-thin, accent color */
+/* Scroll progress bar — top of viewport, accent color */
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 3px;
   background: var(--accent);
   transform-origin: 0 50%;
   transform: scaleX(0);
