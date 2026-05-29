@@ -3,90 +3,284 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mario Salvador Camacho</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Mario Salvador Camacho — Computer Engineering × Business Administration</title>
+  <meta name="description" content="Penultimate-semester student in the Double Degree in Computer Engineering and Business Administration at UC3M. Currently on exchange at TU Graz.">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Header (cargado con fetch) -->
+  <!-- Header (dynamically loaded) -->
   <div id="header-container"></div>
   <script>
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
-        
-        // Detectar la página actual
-        let currentPage = window.location.pathname.split("/").pop();
-  
-        // Buscar todos los enlaces del menú
-        let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
-  
-        // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
+        // Detect current page and mark the active link
+        const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#header-container .site-nav ul li a');
         navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
-                link.classList.add("active");
-            }
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
         });
+        // Scroll-aware header
+        const header = document.querySelector('.site-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
       });
   </script>
 
-  <!-- Íconos sociales -->
-  <div class="social-icons">
-      <a href="https://github.com/100475293" target="_blank">
-          <img src="img/github-brands.svg" alt="GitHub">
-      </a>
-      <a href="https://www.linkedin.com/in/mario-salvador-camacho-3b5b93294/" target="_blank">
-          <img src="img/linkedin-brands.svg" alt="LinkedIn">
-      </a>
-      <a href="https://www.instagram.com/msalvadorr_/" target="_blank">
-          <img src="img/instagram-brands.svg" alt="Instagram">
-      </a>
+  <!-- Hero decorations -->
+  <div class="hero-decoration tl">PORTFOLIO / 2026</div>
+  <div class="hero-decoration br">↓ scroll to explore</div>
+
+  <!-- ============= HERO ============= -->
+  <section class="hero">
+    <div class="hero-content reveal-stagger">
+      <div class="hero-meta">Madrid · Graz · San Diego</div>
+      <h1>Mario<br>Salvador <em>Camacho</em></h1>
+      <p class="hero-tagline">
+        Penultimate-semester student in the <span>Double Degree in Computer Engineering & Business Administration</span> at UC3M. Currently on exchange at TU Graz.
+      </p>
+      <div class="hero-cta">
+        <a href="projects.html" class="btn btn-primary">
+          Selected work <span class="arrow">→</span>
+        </a>
+        <a href="resume.html" class="btn btn-secondary">
+          View CV <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="profile-frame">
+        <img src="img/foto-linkedin.jpg" alt="Mario Salvador Camacho">
+        <div class="profile-badge">
+          <span class="status-dot"></span>
+          <span>Available · Spring '27</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= MARQUEE ============= -->
+  <div class="marquee-section">
+    <div class="marquee">
+      <span class="marquee-item">Engineering</span>
+      <span class="marquee-item">Business strategy</span>
+      <span class="marquee-item">Product</span>
+      <span class="marquee-item">Data</span>
+      <span class="marquee-item">Consulting</span>
+      <span class="marquee-item">Engineering</span>
+      <span class="marquee-item">Business strategy</span>
+      <span class="marquee-item">Product</span>
+      <span class="marquee-item">Data</span>
+      <span class="marquee-item">Consulting</span>
+    </div>
   </div>
 
-  <!-- Contenido principal -->
-  <main style="margin-top: 80px; text-align: center;">
-      <h1 class="fade-in" style="font-size: 3rem; font-weight: bold; animation-delay: 0.3s;">
-          Mario Salvador Camacho
-      </h1>
-      <p class="fade-in" style="font-size: 1.5rem; animation-delay: 0.8s;">
-          Computer Engineering and Business Administration Student
-      </p>
-  </main>
+  <!-- ============= CURRENTLY ============= -->
+  <section id="now">
+    <div class="section-header reveal">
+      <span class="section-number">01 — Currently</span>
+      <h2 class="section-title">What I'm <em>working on</em></h2>
+      <div class="section-line"></div>
+    </div>
 
-  <!-- Imagen de perfil con efecto circular -->
-  <section class="profile-image-container">
-    <img src="img/photo-bkg1.jpg" alt="Profile Picture">
+    <div class="currently-grid reveal-stagger">
+      <div class="current-card">
+        <div class="current-meta">
+          <span class="current-label">● Final degree project</span>
+          <span class="current-when">Spring 2026</span>
+        </div>
+        <h3>Atmospheric humidity capture for mountain sports</h3>
+        <p>Industrial Design TFG exploring portable, deployable fog catchers — currently in synthesis phase after selecting the final product concept.</p>
+      </div>
+
+      <div class="current-card">
+        <div class="current-meta">
+          <span class="current-label">● Exchange semester</span>
+          <span class="current-when">TU Graz, AT</span>
+        </div>
+        <h3>Coursework abroad</h3>
+        <p>Explainable AI under Prof. Felfernig, Marketing & Innovation, and an interdisciplinary product project (Viveat Smart Plate).</p>
+      </div>
+
+      <div class="current-card">
+        <div class="current-meta">
+          <span class="current-label">● Studying</span>
+          <span class="current-when">UC3M</span>
+        </div>
+        <h3>Industrial Software Quality</h3>
+        <p>Deep-diving into Automotive SPICE, ISO 26262 functional safety, and Lean Six Sigma frameworks.</p>
+      </div>
+
+      <div class="current-card">
+        <div class="current-meta">
+          <span class="current-label">● Exploring</span>
+          <span class="current-when">2026 — Q3/Q4</span>
+        </div>
+        <h3>Internship opportunities</h3>
+        <p>Looking for hybrid tech-business roles in consulting, strategy, or product before graduation in January 2027.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- Nueva sección de presentación -->
-  <section class="about-me">
-      <h2 class="fade-in">Nice to meet you! 👋🏻</h2>
-      <p>
-          I'm a <span class="highlight">dual-degree student</span> in 
-          <span class="highlight">Computer Engineering and Business Administration</span>, currently in the final stretch of my academic journey.
-          It's been an exciting and demanding path, blending <span class="highlight">technology, business strategy, and problem-solving</span>,
-          and I'm eager to put my knowledge into action in the professional world.
-      </p>
-      <p>
-          But life isn’t just about academics. <span class="highlight">Sports have always been a big part of who I am.</span> 
-          I love the thrill of <span class="highlight">surfing</span>, where every wave is a new challenge, 
-          and the precision of <span class="highlight">golf</span>, which keeps me focused and disciplined.
-          These sports teach me patience, adaptability, and the importance of continuous improvement—skills that translate well into my professional aspirations.
-      </p>
-      <p>
-          <span class="highlight">Music is another passion of mine.</span> 
-          Whenever I get the chance, I pick up my <span class="highlight">guitar</span> and let the melodies take over.
-          It's a way to express myself, disconnect from the world, and find inspiration in creativity.
-      </p>
-      <p>
-          Above all, I thrive on <span class="highlight">challenges</span>. I’m excited to step into the professional world,
-          <span class="highlight">push my limits</span>, and prove my value through dedication and innovation.
-      </p>
+  <!-- ============= ABOUT ============= -->
+  <section id="about">
+    <div class="about-content">
+      <aside class="about-aside reveal">
+        02 / About
+      </aside>
+
+      <div class="about-text reveal">
+        <p>
+          I sit at the intersection of <em>engineering</em> and <strong>business strategy</strong> — a hybrid profile shaped by five years of dual academic training and three universities across two continents.
+        </p>
+        <p>
+          I'm equally comfortable <strong>writing code</strong>, structuring a <strong>go-to-market plan</strong>, or designing physical products. What I bring is the ability to translate between worlds that don't usually talk to each other.
+        </p>
+        <p>
+          Outside the classroom: I surf when the swell allows, play guitar to think, and chase precision on the <em>golf course</em>.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer (cargado con fetch) -->
+  <!-- ============= EDUCATION ============= -->
+  <section id="education">
+    <div class="section-header reveal">
+      <span class="section-number">03 — Education</span>
+      <h2 class="section-title">Three cities, <em>one path</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline reveal-stagger">
+      <div class="timeline-item">
+        <div class="timeline-date">2022 — 2027</div>
+        <div class="timeline-content">
+          <h3>Double Degree, Computer Engineering & Business Administration</h3>
+          <div class="timeline-place">Universidad Carlos III de Madrid</div>
+          <p class="timeline-detail">Five-and-a-half-year dual program combining the full engineering curriculum with the BBA core. Graduating January 2027.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2025 — 2026</div>
+        <div class="timeline-content">
+          <h3>Exchange Semester</h3>
+          <div class="timeline-place">Technische Universität Graz, Austria</div>
+          <p class="timeline-detail">Coursework in Explainable AI, Marketing & Innovation, and applied product development across two graduate institutes.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2024</div>
+        <div class="timeline-content">
+          <h3>Summer Program</h3>
+          <div class="timeline-place">San Diego State University, USA</div>
+          <p class="timeline-detail">Academic stay focused on software engineering and group project work in the Home Assistant CS576 initiative.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= PROJECTS PREVIEW ============= -->
+  <section id="work" class="work-preview-section">
+    <div class="section-header reveal work-section-header">
+      <span class="section-number">04 — Selected work</span>
+      <h2 class="section-title">Things I've <em>built</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-preview">
+      <div class="projects-list reveal-stagger">
+        <a href="https://github.com/100432160/macrolyze-frontend" target="_blank" rel="noopener" class="project-row">
+          <span class="project-num">001</span>
+          <span class="project-name">Macrolyze Web</span>
+          <span class="project-tag">Full-stack · Web</span>
+          <span class="project-year">2024</span>
+          <span class="project-arrow">↗</span>
+        </a>
+        <a href="https://github.com/dominic-griffith/CS576_Group_Project" target="_blank" rel="noopener" class="project-row">
+          <span class="project-num">002</span>
+          <span class="project-name">Home Assistant Platform</span>
+          <span class="project-tag">CS576 · Group project</span>
+          <span class="project-year">2024</span>
+          <span class="project-arrow">↗</span>
+        </a>
+        <a href="https://github.com/100475293/Data-Science-Study" target="_blank" rel="noopener" class="project-row">
+          <span class="project-num">003</span>
+          <span class="project-name">Data Science Lab</span>
+          <span class="project-tag">Research · Python</span>
+          <span class="project-year">2024</span>
+          <span class="project-arrow">↗</span>
+        </a>
+        <a href="projects.html" class="project-row">
+          <span class="project-num">004</span>
+          <span class="project-name">Viveat Smart Plate</span>
+          <span class="project-tag">Product · Marketing</span>
+          <span class="project-year">2026</span>
+          <span class="project-arrow">↗</span>
+        </a>
+      </div>
+      <div class="projects-cta">
+        <a href="projects.html" class="btn btn-secondary">
+          See full portfolio <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= BEYOND ============= -->
+  <section id="beyond">
+    <div class="section-header reveal">
+      <span class="section-number">05 — Beyond work</span>
+      <h2 class="section-title">Off the <em>clock</em></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="beyond-grid reveal-stagger">
+      <div class="beyond-card">
+        <span class="beyond-icon">≈</span>
+        <h4>Surfing</h4>
+        <p>Patience with the ocean, instinct with the wave</p>
+      </div>
+      <div class="beyond-card">
+        <span class="beyond-icon">◐</span>
+        <h4>Golf</h4>
+        <p>Precision under pressure, hole after hole</p>
+      </div>
+      <div class="beyond-card">
+        <span class="beyond-icon">♪</span>
+        <h4>Guitar</h4>
+        <p>How I think when I stop thinking</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= CONTACT CTA ============= -->
+  <section id="contact" class="contact-cta">
+    <div class="reveal">
+      <div class="contact-cta-label">06 — Let's talk</div>
+      <h2>Have a project, role,<br>or just a <em>good idea</em>?</h2>
+      <a href="contact.html" class="email-link">
+        Get in touch <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer (dynamically loaded) -->
   <div id="footer-container"></div>
   <script>
     fetch('footer.html')
@@ -94,41 +288,26 @@
       .then(data => document.getElementById('footer-container').innerHTML = data);
   </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const profileImageContainer = document.querySelector(".profile-image-container");
-  
-        function checkVisibility() {
-            const rect = profileImageContainer.getBoundingClientRect(); // devuelve un objeto con la posición del elemento
-            const windowHeight = window.innerHeight;
-  
-            if (rect.top <= windowHeight * 0.75) { //Si la parte superior del elemento ya ha entrado al 75% de la altura de la ventana, entonces está “suficientemente visible” para activar la animación.
-                profileImageContainer.classList.add("show");
-                window.removeEventListener("scroll", checkVisibility); // Para que solo se active una vez
-            }
-        }
-  
-        window.addEventListener("scroll", checkVisibility);
-        checkVisibility(); // Verifica si ya es visible al cargar la página
+  <!-- Reveal-on-scroll observer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+      // Trigger hero reveals immediately on load
+      setTimeout(() => {
+        document.querySelectorAll('.hero .reveal, .hero .reveal-stagger').forEach(el => el.classList.add('visible'));
+      }, 100);
     });
   </script>
-  <script>  //que aparezcan los botones sociales uno a uno
-    document.addEventListener("DOMContentLoaded", function () {  //que se cargue toda la pagina web entera
-        const socialIcons = document.querySelectorAll(".social-icons a"); //Selecciona todos los enlaces (<a>) que están dentro del contenedor .social-icons
-        const delayBetweenIcons = 200; // Aumenta el retraso entre cada icono
-        const textAnimationDuration = 1800; // Tiempo de animación del texto
-  
-        setTimeout(() => {
-            [...socialIcons].forEach((icon, index) => {
-                setTimeout(() => {
-                    icon.classList.add("show");
-                }, index * delayBetweenIcons);
-            });
-        }, textAnimationDuration);
-    });
-  </script>
-  
-  
-  
+
 </body>
 </html>
