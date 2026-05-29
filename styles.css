@@ -1855,7 +1855,71 @@ a.contact-info-value:hover {
 }
 
 /* =========================================================
-   10. RESPONSIVE
+   10. PAGE: 404 ERROR
+   ========================================================= */
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.error-content {
+  max-width: 640px;
+  text-align: center;
+}
+
+.error-code {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(120px, 20vw, 220px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: var(--accent);
+  font-style: italic;
+  font-variation-settings: 'opsz' 144;
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.error-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  font-variation-settings: 'opsz' 144;
+}
+
+.error-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-variation-settings: 'opsz' 144;
+}
+
+.error-lede {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 40px;
+}
+
+.error-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   11. RESPONSIVE
    ========================================================= */
 
 @media (max-width: 900px) {
