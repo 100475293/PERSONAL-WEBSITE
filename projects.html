@@ -1,71 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Mario Salvador Camacho</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work | Mario Salvador Camacho</title>
+  <meta name="description" content="Selected projects by Mario Salvador Camacho — engineering, data, product, and business.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Header dinámico -->
-    <div id="header-container"></div>
-    <script>
-        fetch('header.html')
-          .then(response => response.text())
-          .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-            
-            // Detectar la página actual
-            let currentPage = window.location.pathname.split("/").pop();
-      
-            // Buscar todos los enlaces del menú
-            let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
-      
-            // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
-            navLinks.forEach(link => {
-                if (link.getAttribute("href") === currentPage) {
-                    link.classList.add("active");
-                }
-            });
-          });
-      </script>
-      
-    
-    <!-- Contenido principal -->
-    <main>
-        <h2 class="portfolio-title fade-down">Portfolio</h2>
-    
-        <!-- Contenedor de proyectos -->
-        <div class="projects-grid fade-up">
-            <div class="project-card card1">
-                <h3>Macrolyze Web</h3>
-                <img src="img/macrolyze.png" alt="Macrolyze Project" class="project-image">
-                <a href="https://github.com/100432160/macrolyze-frontend" class="view-work">View Work ↗</a>
-            </div>
-            <div class="project-card card2">
-                <h3>Home Assistant</h3>
-                <img src="img/home-assistant.png" alt="Home Assistant Project" class="project-image">
-                <a href="https://github.com/dominic-griffith/CS576_Group_Project" class="view-work">View Work ↗</a>
-            </div>
-            <div class="project-card card3">
-                <h3>Data Science Lab</h3>
-                <img src="img/study.png" alt="Data Science Study" class="project-image">
-                <a href="https://github.com/100475293/Data-Science-Study" class="view-work">View Work ↗</a>
-            </div>
-        </div>
-    </main>
-    
-    
-    <!-- Footer dinámico -->
-    <div id="footer-container"></div>
-    <script>
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer-container').innerHTML = data);
-    </script>
+  <!-- Header (dynamically loaded) -->
+  <div id="header-container"></div>
+  <script>
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+        const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#header-container .site-nav ul li a');
+        navLinks.forEach(link => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
+        const header = document.querySelector('.site-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
+      });
+  </script>
 
-    
+  <!-- ============= PAGE HEADER ============= -->
+  <section class="page-hero">
+    <div class="page-hero-content reveal-stagger">
+      <div class="page-hero-meta">Portfolio · 2024 — 2027</div>
+      <h1 class="page-hero-title">Selected <em>work</em></h1>
+      <p class="page-hero-lede">
+        A mix of engineering, product, and academic research projects — spanning Madrid, San Diego, and Graz. Each one taught me something different about building.
+      </p>
+      <div class="page-hero-stats">
+        <div class="stat">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Universities</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2</span>
+          <span class="stat-label">Continents</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= PROJECTS ZIGZAG ============= -->
+  <section class="projects-zigzag">
+
+    <!-- Project 01 -->
+    <article class="project-block reveal-block" data-side="left">
+      <div class="project-visual">
+        <span class="project-marker">01</span>
+        <div class="project-image-wrap">
+          <img src="img/macrolyze.png" alt="Macrolyze Web project">
+        </div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta">
+          <span class="project-year-tag">2024</span>
+          <span class="project-dot"></span>
+          <span class="project-type">Full-stack · Web</span>
+        </div>
+        <h2 class="project-title">Macrolyze Web</h2>
+        <p class="project-description">
+          Web application for nutritional analysis and macronutrient tracking. Built as part of a collaborative engineering project, focused on usable interfaces for daily health monitoring.
+        </p>
+        <ul class="project-stack">
+          <li>React</li>
+          <li>Node.js</li>
+          <li>REST API</li>
+          <li>UI/UX</li>
+        </ul>
+        <a href="https://github.com/100432160/macrolyze-frontend" target="_blank" rel="noopener" class="project-link">
+          View on GitHub <span class="arrow">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 02 -->
+    <article class="project-block reveal-block" data-side="right">
+      <div class="project-visual">
+        <span class="project-marker">02</span>
+        <div class="project-image-wrap">
+          <img src="img/home-assistant.png" alt="Home Assistant project">
+        </div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta">
+          <span class="project-year-tag">2024</span>
+          <span class="project-dot"></span>
+          <span class="project-type">Group · CS576 SDSU</span>
+        </div>
+        <h2 class="project-title">Home Assistant Platform</h2>
+        <p class="project-description">
+          Software engineering group project developed during my exchange at San Diego State University. A smart-home assistant integrating IoT device control with a unified interface.
+        </p>
+        <ul class="project-stack">
+          <li>Python</li>
+          <li>IoT</li>
+          <li>Agile</li>
+          <li>Team of 5</li>
+        </ul>
+        <a href="https://github.com/dominic-griffith/CS576_Group_Project" target="_blank" rel="noopener" class="project-link">
+          View on GitHub <span class="arrow">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 03 -->
+    <article class="project-block reveal-block" data-side="left">
+      <div class="project-visual">
+        <span class="project-marker">03</span>
+        <div class="project-image-wrap">
+          <img src="img/study.png" alt="Data Science Lab project">
+        </div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta">
+          <span class="project-year-tag">2024</span>
+          <span class="project-dot"></span>
+          <span class="project-type">Research · Python</span>
+        </div>
+        <h2 class="project-title">Data Science Lab</h2>
+        <p class="project-description">
+          Applied data science coursework at UC3M. Worked through real-world datasets covering exploratory analysis, statistical modeling, and machine learning pipelines from preprocessing to evaluation.
+        </p>
+        <ul class="project-stack">
+          <li>Python</li>
+          <li>Pandas</li>
+          <li>scikit-learn</li>
+          <li>Jupyter</li>
+        </ul>
+        <a href="https://github.com/100475293/Data-Science-Study" target="_blank" rel="noopener" class="project-link">
+          View on GitHub <span class="arrow">↗</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 04 - PLACEHOLDER for Engineering TFG -->
+    <article class="project-block reveal-block project-upcoming" data-side="right">
+      <div class="project-visual">
+        <span class="project-marker">04</span>
+        <div class="project-image-wrap project-image-placeholder">
+          <div class="placeholder-content">
+            <span class="placeholder-icon">⌁</span>
+            <span class="placeholder-label">In progress</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta">
+          <span class="project-year-tag upcoming">Coming · 2026</span>
+          <span class="project-dot"></span>
+          <span class="project-type">Final degree project</span>
+        </div>
+        <h2 class="project-title">Computer Engineering TFG</h2>
+        <p class="project-description">
+          Final degree project for the Computer Engineering side of the double degree. Currently in scoping phase. Topic and abstract will be published here once defined.
+        </p>
+        <ul class="project-stack">
+          <li>UC3M</li>
+          <li>Software Engineering</li>
+        </ul>
+        <span class="project-link project-link-disabled">
+          Coming soon
+        </span>
+      </div>
+    </article>
+
+    <!-- Project 05 - PLACEHOLDER for Business TFG -->
+    <article class="project-block reveal-block project-upcoming" data-side="left">
+      <div class="project-visual">
+        <span class="project-marker">05</span>
+        <div class="project-image-wrap project-image-placeholder">
+          <div class="placeholder-content">
+            <span class="placeholder-icon">◐</span>
+            <span class="placeholder-label">In progress</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-text">
+        <div class="project-meta">
+          <span class="project-year-tag upcoming">Coming · 2026</span>
+          <span class="project-dot"></span>
+          <span class="project-type">Final degree project</span>
+        </div>
+        <h2 class="project-title">Business Administration TFG</h2>
+        <p class="project-description">
+          Final degree project for the Business Administration side of the double degree. To be developed alongside the Computer Engineering TFG, with both expected to converge thematically.
+        </p>
+        <ul class="project-stack">
+          <li>UC3M</li>
+          <li>Strategy / Management</li>
+        </ul>
+        <span class="project-link project-link-disabled">
+          Coming soon
+        </span>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ============= CTA ============= -->
+  <section class="work-cta">
+    <div class="reveal">
+      <div class="contact-cta-label">Want to know more?</div>
+      <h2>Always happy to walk through<br>any of these in <em>detail</em>.</h2>
+      <a href="contact.html" class="email-link">
+        Get in touch <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer (dynamically loaded) -->
+  <div id="footer-container"></div>
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-container').innerHTML = data);
+  </script>
+
+  <!-- Reveal-on-scroll observer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-stagger, .reveal-block').forEach(el => observer.observe(el));
+
+      // Trigger page hero reveals immediately
+      setTimeout(() => {
+        document.querySelectorAll('.page-hero .reveal, .page-hero .reveal-stagger').forEach(el => el.classList.add('visible'));
+      }, 100);
+    });
+  </script>
 
 </body>
 </html>
