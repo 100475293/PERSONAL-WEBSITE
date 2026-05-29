@@ -46,7 +46,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  animation: pageEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: pageEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.32s cubic-bezier(0.7, 0, 0.84, 0),
+              transform 0.32s cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+body.is-leaving {
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: none;
 }
 
 @keyframes pageEnter {
@@ -58,6 +68,54 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  body.is-leaving {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll progress bar — top of viewport, ultra-thin, accent color */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 200;
+  pointer-events: none;
+  will-change: transform;
+  transition: transform 0.08s linear;
+}
+
+/* Make magnetic buttons feel smoother during transform */
+.btn-primary,
+.btn-secondary,
+.email-link {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+.btn-primary .arrow,
+.btn-secondary .arrow,
+.email-link .arrow {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 /* Paper-like noise texture overlay across the whole page */
