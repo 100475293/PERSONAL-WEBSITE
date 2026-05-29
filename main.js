@@ -19,6 +19,9 @@
   // navigating. The pageEnter animation on body handles fade-in.
   document.addEventListener('DOMContentLoaded', () => {
 
+    // Safety: always clean is-leaving on a fresh page load
+    document.body.classList.remove('is-leaving');
+
     const isInternal = (url) => {
       if (!url) return false;
       if (url.startsWith('#')) return false; // anchor only
@@ -42,14 +45,17 @@
       // Skip externals, downloads, new-tab links, modifier keys
       if (link.hasAttribute('download')) return;
       if (link.getAttribute('target') === '_blank') return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       if (!isInternal(href)) return;
       if (href.startsWith('#')) return;
 
       // Skip if it points to the same page (no real navigation)
-      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-      const targetPath = href.split('#')[0].split('?')[0];
+      const currentPath = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      const targetPath = href.split('#')[0].split('?')[0].toLowerCase();
       if (targetPath === '' || targetPath === currentPath) return;
+
+      // Skip PDFs and other binary files — let the browser handle natively
+      if (/\.(pdf|zip|jpg|jpeg|png|gif|svg|webp|mp4|mp3)$/i.test(targetPath)) return;
 
       e.preventDefault();
       document.body.classList.add('is-leaving');
@@ -57,6 +63,11 @@
         window.location.href = href;
       }, 320);
     });
+  });
+
+  // When user navigates back/forward via browser buttons, restore visibility
+  window.addEventListener('pageshow', (e) => {
+    document.body.classList.remove('is-leaving');
   });
 
   /* =========================================================
