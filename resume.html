@@ -4,68 +4,200 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CV | Mario Salvador Camacho</title>
+  <meta name="description" content="Curriculum Vitae of Mario Salvador Camacho — Computer Engineering & Business Administration student at UC3M.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
-
-
 </head>
 <body>
-    
-  <!-- Header dinámico -->
+
+  <!-- Header (dynamically loaded) -->
   <div id="header-container"></div>
   <script>
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
-        
-        // Detectar la página actual
-        let currentPage = window.location.pathname.split("/").pop();
-  
-        // Buscar todos los enlaces del menú
-        let navLinks = document.querySelectorAll('#header-container .nav-links ul li a');
-  
-        // Recorrer los enlaces y marcar como "active" el que coincida con la página actual
+        const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#header-container .site-nav ul li a');
         navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
-                link.classList.add("active");
-            }
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
         });
+        const header = document.querySelector('.site-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
       });
   </script>
-  
 
-  <main>
-    <!-- MY CURRICULUM VITAE bajando desde arriba => fade-down -->
-    <h2 class="fade-down">MY CURRICULUM VITAE</h2>
-    
-    <!-- Texto ascendiendo => fade-up, en una sola línea -->
-    <p class="fade-up single-line" style="margin-top:10px;">
-      View or download my resume to learn more about my professional experience!
-    </p>
+  <!-- ============= RESUME HERO ============= -->
+  <section class="page-hero">
+    <div class="page-hero-content reveal-stagger">
+      <div class="page-hero-meta">Curriculum Vitae</div>
+      <h1 class="page-hero-title">My <em>resume</em></h1>
+      <p class="page-hero-lede">
+        Five years of dual academic training across three universities and two continents — distilled into one document.
+      </p>
+    </div>
+  </section>
 
-    <!-- Contenedor del PDF con zoom-in -->
-    <div class="resume-wrapper zoom-in" style="animation-delay: 0.3s;">
-      <iframe 
-        src="cv/CV%20VERSION%202.pdf" 
-        frameborder="0"
-        scrolling="auto"
-        class="resume-iframe">
-      </iframe>
+  <!-- ============= CV SUMMARY HIGHLIGHTS ============= -->
+  <section class="cv-summary">
+    <div class="cv-summary-grid reveal-stagger">
+      <div class="cv-summary-card">
+        <span class="cv-summary-label">Education</span>
+        <h3 class="cv-summary-value">Double Degree</h3>
+        <p class="cv-summary-detail">Computer Engineering & Business Administration · UC3M · 2022 — 2027</p>
+      </div>
+      <div class="cv-summary-card">
+        <span class="cv-summary-label">International</span>
+        <h3 class="cv-summary-value">3 Universities</h3>
+        <p class="cv-summary-detail">UC3M (ES) · TU Graz (AT) · SDSU (US)</p>
+      </div>
+      <div class="cv-summary-card">
+        <span class="cv-summary-label">Languages</span>
+        <h3 class="cv-summary-value">3 Languages</h3>
+        <p class="cv-summary-detail">Spanish (native) · English (C1) · German (B1)</p>
+      </div>
+      <div class="cv-summary-card">
+        <span class="cv-summary-label">Open to</span>
+        <h3 class="cv-summary-value">Internships</h3>
+        <p class="cv-summary-detail">Consulting · Strategy · Tech · Q3-Q4 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============= CV TOOLBAR ============= -->
+  <section class="cv-section">
+
+    <div class="cv-toolbar reveal">
+      <div class="cv-lang-toggle" role="tablist" aria-label="CV language">
+        <button class="cv-lang-btn is-active" data-lang="en" role="tab" aria-selected="true">
+          <span class="cv-lang-flag">EN</span>
+          <span>English</span>
+        </button>
+        <button class="cv-lang-btn" data-lang="es" role="tab" aria-selected="false">
+          <span class="cv-lang-flag">ES</span>
+          <span>Español</span>
+        </button>
+      </div>
+
+      <div class="cv-toolbar-actions">
+        <a href="cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ENG.pdf" target="_blank" rel="noopener" class="cv-action-btn" id="cv-open-link">
+          Open in new tab <span class="arrow">↗</span>
+        </a>
+        <a href="cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ENG.pdf" download class="btn btn-primary" id="cv-download-btn">
+          Download CV <span class="arrow">↓</span>
+        </a>
+      </div>
     </div>
 
-    <div style="text-align:center; margin-top: 20px;">
-      <a href="cv/CV%20VERSION%202.pdf" download class="button-cv">
-        Download CV
-        <span class="arrow">↗</span>
+    <!-- ============= PDF VIEWER ============= -->
+    <div class="cv-viewer-wrap reveal">
+      <div class="cv-viewer-frame">
+        <div class="cv-viewer-loader" id="cvLoader">
+          <div class="cv-spinner"></div>
+          <span class="cv-loader-text">Loading document…</span>
+        </div>
+        <iframe
+          id="cvIframe"
+          src="cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ENG.pdf#view=FitH"
+          title="Mario Salvador Camacho — CV"
+          class="cv-iframe"
+          onload="document.getElementById('cvLoader').classList.add('hidden')">
+        </iframe>
+      </div>
+
+      <p class="cv-viewer-note">
+        Having trouble viewing? <a href="cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ENG.pdf" target="_blank" rel="noopener" id="cv-fallback-link">Open the PDF directly</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============= CTA ============= -->
+  <section class="work-cta">
+    <div class="reveal">
+      <div class="contact-cta-label">Want to talk about it?</div>
+      <h2>Always happy to walk through<br>my background in <em>person</em>.</h2>
+      <a href="contact.html" class="email-link">
+        Get in touch <span class="arrow">↗</span>
       </a>
     </div>
-  </main>
+  </section>
 
+  <!-- Footer (dynamically loaded) -->
   <div id="footer-container"></div>
   <script>
     fetch('footer.html')
       .then(response => response.text())
       .then(data => document.getElementById('footer-container').innerHTML = data);
   </script>
+
+  <!-- Reveal observer + language toggle -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* Reveal-on-scroll */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+      setTimeout(() => {
+        document.querySelectorAll('.page-hero .reveal, .page-hero .reveal-stagger').forEach(el => el.classList.add('visible'));
+      }, 100);
+
+      /* Language toggle for CV */
+      const cvPaths = {
+        en: 'cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ENG.pdf',
+        es: 'cv/CV%20-%20Mario%20Salvador%20Camacho%20-%20ESP.pdf'
+      };
+
+      const langBtns = document.querySelectorAll('.cv-lang-btn');
+      const iframe = document.getElementById('cvIframe');
+      const loader = document.getElementById('cvLoader');
+      const downloadBtn = document.getElementById('cv-download-btn');
+      const openBtn = document.getElementById('cv-open-link');
+      const fallbackLink = document.getElementById('cv-fallback-link');
+
+      langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.dataset.lang;
+          if (btn.classList.contains('is-active')) return;
+
+          // Update buttons
+          langBtns.forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          // Show loader and update sources
+          loader.classList.remove('hidden');
+          const newPath = cvPaths[lang];
+          iframe.src = newPath + '#view=FitH';
+          downloadBtn.href = newPath;
+          openBtn.href = newPath;
+          fallbackLink.href = newPath;
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
