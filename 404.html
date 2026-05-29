@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Not found | Mario Salvador Camacho</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon-180.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header (dynamically loaded) -->
+  <div id="header-container"></div>
+  <script>
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+        const header = document.querySelector('.site-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
+      });
+  </script>
+
+  <main class="error-page">
+    <div class="error-content reveal-stagger">
+      <div class="error-code">404</div>
+      <h1 class="error-title">This page <em>got lost</em></h1>
+      <p class="error-lede">
+        Maybe a broken link, maybe a typo. The page you're looking for isn't here — but everything else still is.
+      </p>
+      <div class="error-actions">
+        <a href="index.html" class="btn btn-primary">
+          Back home <span class="arrow">→</span>
+        </a>
+        <a href="projects.html" class="btn btn-secondary">
+          See my work <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (dynamically loaded) -->
+  <div id="footer-container"></div>
+  <script>
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer-container').innerHTML = data);
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.reveal-stagger').forEach(el => el.classList.add('visible'));
+      }, 100);
+    });
+  </script>
+
+</body>
+</html>
