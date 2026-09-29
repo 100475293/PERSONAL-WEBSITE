@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://100475293.github.io/PERSONAL-WEBSITE/sitemap.xml
